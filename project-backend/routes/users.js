@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var db = require('../db');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -12,5 +13,22 @@ router.get('/', function(req, res, next) {
   	username: "D0loresH4ze"
   }]);
 });
+
+// POST method route
+router.post('/add', function (req, res) {
+  console.log(req);
+  var email= req.body.email;
+  var password= req.body.password;
+
+  var sql = "INSERT INTO users(email,password) VALUES("+email+", "+password+")";
+
+  // execute the insert statment
+
+  db.query(sql);
+  db.end()
+  res.send('POST request to the homepage '+email)
+  
+});
+
 
 module.exports = router;
